@@ -1,0 +1,13 @@
+{
+    "name": "auth-client",
+    "version": "1.0.0",
+    "main": "src/index.js",
+    "type": "module",
+    "peerDependencies": {
+        "react": "^18 || ^19",
+        "react-router-dom": "^6"
+    },
+    "dependencies": {
+        "axios": "^1.6.0"
+    }
+}
