@@ -31,7 +31,7 @@ Backend configuration per project
 
 Install directly from GitHub:
 
-npm install https://github.com/YOUR_USERNAME/auth-client.git
+npm install https://github.com/alsaim7/auth-client.git
 
 
 ---
