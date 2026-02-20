@@ -256,7 +256,7 @@ Create authentication once → reuse in unlimited React projects.
 
 👨‍💻 Author
 
-Your Name
+Al Saim Shakeel (@alsaim7)
 
 
 ---
