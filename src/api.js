@@ -17,6 +17,12 @@ export function createAPI(config) {
         if (token) {
             req.headers.Authorization = `Bearer ${token}`;
         }
+
+        // ✅ ngrok fix (SAFE)
+        if (req.baseURL && req.baseURL.includes("ngrok")) {
+            req.headers["ngrok-skip-browser-warning"] = "true";
+        }
+
         return req;
     });
 
