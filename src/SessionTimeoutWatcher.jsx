@@ -1,14 +1,12 @@
 import { useEffect, useRef } from "react";
 import { clearToken, getToken } from "./auth";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
-function parseJwtExp(token) {
+function getTokenExpiry(token) {
     try {
-        const [, payload] = token.split(".");
-        const json = JSON.parse(
-            atob(payload.replace(/-/g, "+").replace(/_/g, "/"))
-        );
-        return typeof json.exp === "number" ? json.exp : null;
+        const decoded = jwtDecode(token);
+        return decoded?.exp ?? null;
     } catch {
         return null;
     }
@@ -25,26 +23,26 @@ export default function SessionTimeoutWatcher() {
             const token = getToken();
             if (!token) return;
 
-            const expSec = parseJwtExp(token);
+            const expSec = getTokenExpiry(token);
 
             if (!expSec) {
-                clearToken();
-                navigate("/login", { replace: true });
+                handleLogout();
                 return;
             }
 
             const remaining = expSec * 1000 - Date.now();
 
             if (remaining <= 0) {
-                clearToken();
-                navigate("/login", { replace: true });
+                handleLogout();
                 return;
             }
 
-            timerRef.current = setTimeout(() => {
-                clearToken();
-                navigate("/login", { replace: true });
-            }, remaining);
+            timerRef.current = setTimeout(handleLogout, remaining);
+        }
+
+        function handleLogout() {
+            clearToken();
+            navigate("/login", { replace: true });
         }
 
         schedule();

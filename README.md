@@ -82,7 +82,36 @@ setToken(response.data.access_token);
 
 ---
 
-3️⃣ Protected Routes
+3️⃣ Get Current User
+
+Decode the JWT token and return the user payload:
+
+import { getUser } from "auth-client";
+
+const user = getUser();
+console.log(user); // { id, email, role, exp, ... }
+
+Returns null if no token exists or if the token is invalid.
+
+Useful for displaying user info, role-based UI, or passing user data to components.
+
+
+---
+
+4️⃣ Check Authentication Status
+
+import { isAuthenticated } from "auth-client";
+
+if (isAuthenticated()) {
+  // user is logged in
+}
+
+Returns true if a token exists in localStorage, false otherwise.
+
+
+---
+
+5️⃣ Protected Routes
 
 import { RequireAuth } from "auth-client";
 
@@ -98,7 +127,7 @@ import { RequireAuth } from "auth-client";
 
 ---
 
-4️⃣ Auto Logout When Token Expires
+6️⃣ Auto Logout When Token Expires
 
 Add once inside App.jsx:
 

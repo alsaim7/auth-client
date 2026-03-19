@@ -1,3 +1,5 @@
+import jwtDecode from "jwt-decode";
+
 export const TOKEN_KEY = "access_token";
 
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
@@ -11,14 +13,14 @@ export const clearToken = () =>
 export const isAuthenticated = () =>
     Boolean(getToken());
 
-export function decodeToken(token) {
+export const getUser = () => {
+    const token = getToken();
     if (!token) return null;
 
     try {
-        const payloadBase64 = token.split(".")[1];
-        return JSON.parse(atob(payloadBase64));
+        return jwtDecode(token);
     } catch (err) {
         console.error("Invalid token:", err);
         return null;
     }
-}
+};
