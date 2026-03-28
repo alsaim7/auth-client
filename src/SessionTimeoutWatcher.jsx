@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { clearToken, getToken } from "./auth";
 import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 function getTokenExpiry(token) {
     try {
